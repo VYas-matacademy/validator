@@ -1,0 +1,64 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+       <!-- <input id="field" type="text" maxlength="19" placeholder="1234-1234-2356-2346"/>
+        <button id="but">Click me</button>
+        <p id="demo"></p>       -->
+    </body>
+    <script>
+
+
+function isCreditCardValid(str) {
+  var array = str.split('-');
+
+  var total= '';
+
+  array.forEach(function(element) {
+      total += element;
+  }, this);
+  return regCheck(total);
+}
+
+
+function allAreTheSame(number) {
+    var chars = Array.from(number);
+
+    for(var i = 1; i < chars.length; i++) {
+        if(chars[i] !== chars[i - 1])
+         return lastIsEven(number);
+    }
+        return false;
+}
+
+function regCheck(str) {
+    var number = +str;
+     var regex = new RegExp("^[0-9]{16}$");
+    return regex.test(number) ? allAreTheSame(str) : false;
+}
+
+function lastIsEven(str) {
+    var lastNum = +str.slice(-1);
+    return lastNum % 2 == 0 ? sumOfNums(str) : false;
+}
+
+function sumOfNums(str) {
+    var nums = str.split('').map(Number);
+
+    var result = nums.reduce(function(sum,current) {
+        return sum + current;
+    });
+    return result > 16;
+}
+/*
+alert(isCreditCardValid('9999-9999-8888-0000'));
+alert(isCreditCardValid('6666-6666-6666-1666'));
+alert(isCreditCardValid('a923-3211-9c01-1112'));
+alert(isCreditCardValid('4444-4444-4444-4444'));
+alert(isCreditCardValid('1111-1111-1111-1110'));
+alert(isCreditCardValid('6666-6666-6666-6661'));
+*/
+
+ </script>
+</html>
