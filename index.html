@@ -3,15 +3,18 @@
 
     </head>
     <body>
-       <!-- <input id="field" type="text" maxlength="19" placeholder="1234-1234-2356-2346"/>
-        <button id="but">Click me</button>
-        <p id="demo"></p>       -->
     </body>
     <script>
 
 
+var rsObj = {};
+rsObj.isValid = false;
+
+
 function isCreditCardValid(str) {
+ this.rsObj.num = str;
   var array = str.split('-');
+
 
   var total= '';
 
@@ -22,25 +25,38 @@ function isCreditCardValid(str) {
 }
 
 
-function allAreTheSame(number) {
+function allAreNotTheSame(number) {
     var chars = Array.from(number);
 
     for(var i = 1; i < chars.length; i++) {
         if(chars[i] !== chars[i - 1])
          return lastIsEven(number);
     }
+        showResult(rsObj, "you must have at least 1 different number");
         return false;
 }
 
 function regCheck(str) {
     var number = +str;
      var regex = new RegExp("^[0-9]{16}$");
-    return regex.test(number) ? allAreTheSame(str) : false;
+   // return regex.test(number) ? allAreTheSame(str) : false;
+
+    if(regex.test(number)){
+        return allAreNotTheSame(str);
+    }
+    showResult(rsObj, "Invalid data");
+    return false;
 }
 
 function lastIsEven(str) {
     var lastNum = +str.slice(-1);
-    return lastNum % 2 == 0 ? sumOfNums(str) : false;
+  //  return lastNum % 2 == 0 ? sumOfNums(str) : false;
+
+    if(lastNum % 2 == 0){
+        return sumOfNums(str);
+    }
+    showResult(rsObj, "last num must be even");
+    return false;
 }
 
 function sumOfNums(str) {
@@ -49,7 +65,18 @@ function sumOfNums(str) {
     var result = nums.reduce(function(sum,current) {
         return sum + current;
     });
-    return result > 16;
+
+    if(result > 16){
+        return true;
+    }
+    showResult(rsObj, "sum of all nums <= 16");
+    return false;
+}
+
+
+function showResult(obj,warn) {
+    rsObj.warn = warn;
+    console.log(obj);
 }
 /*
 alert(isCreditCardValid('9999-9999-8888-0000'));
